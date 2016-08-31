@@ -1,0 +1,57 @@
+Overview:
+    See flowchart diagram
+
+
+
+node.js express <--> scrubdev.cs
+    Structure:
+        1. Instruction
+        2. Spacer
+        3. Arguments
+        5. Stream end
+
+
+    Definitions:
+        Instruction
+            Data sent according to the structure
+            Arguments should be separated by comma (",")
+
+        Spacer
+            Just a space
+
+        Stream end
+            Indicates the end of the tcp message. Should just be \r\n (CARRIAGE RETURN, LINE FEED)
+
+
+    Instruction definitions (express --> scrubdev <client-server>):
+        pathfind
+        Pathfinds to a target
+            (Int) grid X
+            (Int) grid Y
+
+        sleep
+        Sleeps bot - Server side should handle that lights go off right away, motors go off in ~5 mins
+            (Bool?) forces an on or off - default toggles
+
+        home
+        Requests to recalibrate and center on home
+            (No args)
+
+
+    Instruction definitions (scrubdev --> express <server-client>):
+        welcome
+        Sent upon connection to the tcp server - express end should cache this and update as is
+            (Int) status as below.
+
+        status
+        Updates the express client of the current status of the bot. This should update the vue.js frontend
+            (Int) status where: 1 - Navigating, 0 - Idle, -1 - Sleep (lights), -2 - Deep Sleep (motor)
+
+
+    Examples
+        (The below <\r\n> are simulated returns, in real request put actual returns)
+        Navigate with pathfinding to (69, 420)
+            tcp client-server: pathfind 69,420<\r\n>
+
+        Bot has went to sleep, informing the client
+            tcp server-client: status -1<\r\n>
