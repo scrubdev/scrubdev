@@ -1,5 +1,5 @@
 # scrubdev
-Future location of the main automation project.
+The main automation project program.
 
 ## License
-Should be zlib/libpng.
+Code is licensed under the zlib/libpng license. The full text can be found in the root of this repository.
